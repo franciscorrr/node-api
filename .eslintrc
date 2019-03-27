@@ -1,0 +1,8 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb","plugin:import/errors"],
+  "plugins": ["import"],
+  "env": {
+    "node": true
+  }
+}
