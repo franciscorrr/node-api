@@ -1,16 +1,29 @@
 import express from 'express';
 
 import { isAuthenticated } from '../services/authentication';
+import products from '../models/product.model';
 
 const handlers = [
   express.Router().get('/api/products', async (req, res) => {
-    res.send([]);
+    const listOfProducts = await products.find({});
+
+    throw Error('TEST');
+
+    res.send(listOfProducts);
   }),
   express.Router().post('/api/products', isAuthenticated, async (req, res) => {
-    res.send({ result: [] });
+    const product = req.body;
+
+    const productDDBB = await products.create(product);
+
+    res.send(productDDBB);
   }),
-  express.Router().delete('/api/products', isAuthenticated, async (req, res) => {
-    res.send({ result: [] });
+  express.Router().delete('/api/products/:productid', isAuthenticated, async (req, res) => {
+    const { productid } = req.params;
+
+    await products.deleteOne({ _id: productid });
+
+    res.send();
   }),
 ];
 

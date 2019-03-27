@@ -8,7 +8,6 @@ const TEST_USER_PASSWORD = 'test';
 async function verifyJWTToken(token) {
   const arr = token.split(' ');
   if (arr[0] === 'Bearer') {
-    console.log(token);
     return jwt.verify(arr[1], constants.auth.secret);
   }
   throw new Error('Token not valid!');
@@ -42,7 +41,6 @@ export const isAuthenticated = (req, res, next) => {
       next();
     })
     .catch((err) => {
-      console.error(err);
       res.status(401).send('Not authorized');
     });
 };
